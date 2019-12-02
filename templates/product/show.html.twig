@@ -11,4 +11,23 @@
 <p><strong>Prix : {{ product.price }}</strong></p>
 <em>Créé le {{ product.createdAt|date("d/m/Y") }}</em>
 
+<button class="btn btn-primary" id="ajouterPanier">Ajouter au panier</button>
+
+{% block javascripts %}
+<script>
+    const id = document.querySelector("h1").getAttribute("data-id");
+    const btnAjouter = document.querySelector("#ajouterPanier");
+    const url = `/panier/add/${id}`;
+    
+    btnAjouter.addEventListener("click", () => {
+        fetch(url)
+            .then(res => res.json())
+            .then(res => {
+                document.location.reload();
+                btnAjouter.disabled = true;        
+            });
+    });
+</script>
+{% endblock %}
+
 {% endblock %}

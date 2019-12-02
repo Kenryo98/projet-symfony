@@ -6,6 +6,7 @@ use App\Repository\ProductRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ProductController extends AbstractController
@@ -32,7 +33,7 @@ class ProductController extends AbstractController
     }
 
 
-        /**
+     /**
      * @Route("/product/{id}", name="product.show")
      */
     public function show(int $id) {
@@ -44,7 +45,7 @@ class ProductController extends AbstractController
 
         return $this->render('product/show.html.twig', [
             'controller_name' => 'ProductController',
-            'product' => $product,
+            'product' => $product,  
 
         ]);
 
