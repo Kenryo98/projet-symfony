@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+<a href="/product" class="btn btn-primary">Retour</a>
+
+
+<h1 data-id="{{ product.id }}">{{ product.name }}</h1>
+<p> {{ product.description }}</p>
+<p><strong>Prix : {{ product.price }}</strong></p>
+<em>Créé le {{ product.createdAt|date("d/m/Y") }}</em>
+
+{% endblock %}
