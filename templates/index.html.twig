@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col d-flex justify-content-center">
+                <h1>Accueil</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="col d-flex justify-content-center">
+                    <h2>Produits les plus récents</h2>
+                </div>
+                {% for product in plusRecents %}
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12 card">
+                            <div class="card-body">
+                                <a href="/article/{{ product.id }}">
+                                    <h5 class="card-title">{{ product.name }}</h5>
+                                </a>
+                                <p class="card-text">Date Parution : {{ product.createdAt|date("m/d/Y") }}
+                                    </br>
+                                    <div class="row">
+                                        <div class="d-flex justify-content-end">
+                                            <a href="/product/{{ product.id }}" class="btn btn-primary">Voir Plus</a>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                </br>
+                {% endfor %}
+            </div>
+
+            <div class="col-6">
+                <div class="col d-flex justify-content-center">
+                    <h2>Produits les moins chers</h2>
+                </div>
+                {% for product in moinsCher %}
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12 card">
+                            <div class="card-body">
+                                <a href="/article/{{ product.id }}">
+                                    <h5 class="card-title">{{ product.name }}</h5>
+                                </a>
+                                <p class="card-text">Date Parution : {{ product.createdAt|date("m/d/Y") }}
+                                    </br>
+                                    <div class="row">
+                                        <div class="d-flex justify-content-end">
+                                            <a href="/product/{{ product.id }}" class="btn btn-primary">Voir Plus</a>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                </br>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+            {% endblock %}

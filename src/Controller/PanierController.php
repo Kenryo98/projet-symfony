@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Command;
+use App\Form\CommandType;
 use App\Repository\ProductRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -25,7 +27,10 @@ class PanierController extends AbstractController
      */
     public function index(Request $request, SessionInterface $session) {
 
+        $command = new Command();
+        $commandForm = $this->createForm(CommandType::class, $command);
         $panier = $session->get('panier', []);
+        $manager = $this->getDoctrine()->getManager();
 
         $products = [];
         $prixTotal = 0;
@@ -35,13 +40,30 @@ class PanierController extends AbstractController
                 'produit' => $product,
                 'quantite' => $quantity];
             $prixTotal += $product->getPrice();
-            
         }
+
+        $commandForm->handleRequest($request);
+
+        if ($commandForm->isSubmitted()) {
+            $command->setCreatedAt(new \DateTime('now'));
+            
+            foreach($panier as $id => $quantity) {
+                $p =$this->repository->find($id);
+                $command->addProduct($p);
+            }
+            $session->clear();
+            $manager->persist($command);
+            $manager->flush();
+
+            return $this->redirectToRoute('panier.index');
+        }
+
 
         return $this->render('panier/index.html.twig', [
             'controller_name' => 'PanierController',
             'products' => $products,
-            'prixTotal' => $prixTotal
+            'prixTotal' => $prixTotal,
+            'commandForm' => $commandForm->createView()
         ]);
     }
     

@@ -43,4 +43,17 @@
       </tr>
     </tbody>
   </table>
+
+  {{ form_start(commandForm) }}
+
+  <div class="form-group">
+    <label for="command_email">Email</label>
+    {{ form_widget(commandForm.email) }}
+  </div>
+
+  <button type="submit" class="btn btn-primary btn-block">
+    Créer l'article
+  </button>
+
+  {{ form_end(commandForm) }}
 {% endblock %}

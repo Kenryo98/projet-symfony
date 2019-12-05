@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+<a href="/command" class="btn btn-primary">Retour</a>
+
+
+<h1 data-id="{{ command.id }}">Commande N°{{ command.id }}</h1>
+<p><strong>Email : </strong> {{ command.email }}</p>
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Nom du produit</th>
+          <th scope=col>Quantité</th>
+          <th scope="col">Prix</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for product in products %}
+      <tr>
+        <th scope="row">{{ product.id }}</th>
+        <td>
+            <a href="{{ path('product.show', {id : product.id}) }}">{{ product.name }}</a>
+        </td>
+        <td>
+            <p>1</p>
+        </td>
+        <td>
+            <p>{{ product.price }}€</p>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+    <tfoot>
+            <tr>
+            <th>Total</th>
+            <td></td>
+            <td>{{ products|length }}</td>
+            <td>{{ prixTotal }}</td>
+        </tr>
+    </tfoot>
+</table>
+
+
+
+{% endblock %}

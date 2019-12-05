@@ -19,22 +19,35 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
-    // /**
-    //  * @return Product[] Returns an array of Product objects
-    //  */
-    /*
-    public function findByExampleField($value)
+     /**
+      * @return Product[] Returns an array of Product objects
+      */
+    
+    public function findPlusRecents($value)
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
+            ->orderBy('p.createdAt', 'DESC')
+            ->setMaxResults($value)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
+    /**
+      * @return Product[] Returns an array of Product objects
+      */
+    
+      public function findMoinsCher($value)
+      {
+          return $this->createQueryBuilder('p')
+              ->orderBy('p.price', 'ASC')
+              ->setMaxResults($value)
+              ->getQuery()
+              ->getResult()
+          ;
+      }
+    
+
 
     /*
     public function findOneBySomeField($value): ?Product
@@ -47,4 +60,6 @@ class ProductRepository extends ServiceEntityRepository
         ;
     }
     */
+
+
 }
